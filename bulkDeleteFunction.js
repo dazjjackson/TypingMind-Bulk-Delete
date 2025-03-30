@@ -464,7 +464,7 @@
                 updateBulkDeleteButtonUI(); // Update text/visibility (will likely hide button)
            }
            // Optionally toggle off mode after showing status
-           // if (bulkDeleteEnabled) toggleBulkDeleteMode();
+           if (bulkDeleteEnabled) toggleBulkDeleteMode();
          }, 1500);
 
       } else {
@@ -474,7 +474,7 @@
             updateBulkDeleteButtonUI(); // Update UI immediately
         }
         // Optionally toggle off mode immediately
-        // if (bulkDeleteEnabled) toggleBulkDeleteMode();
+        if (bulkDeleteEnabled) toggleBulkDeleteMode();
       }
       // --- End Corrected Logic ---
     }

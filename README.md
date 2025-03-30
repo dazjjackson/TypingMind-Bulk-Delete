@@ -25,7 +25,7 @@ This script adds functionality to the TypingMind web interface to allow for the 
 
 ## How to Use
 
-1.  **Load the Script:** This script is designed to be loaded as a browser extension (e.g., using Tampermonkey, Violentmonkey) or injected dynamically into the TypingMind page.
+1.  **Load the Script:** This script is designed to be loaded as a TypingMind extension.
 2.  **Toggle Mode:** Click the trash can icon button in the chat header to enable bulk delete mode. The icon will get a subtle red background highlight.
 3.  **Select Messages:** Click on the message blocks you want to delete. They will turn light red. Click again to deselect.
 4.  **Delete:** Once messages are selected, the "Delete (X)" button will appear in the bottom action bar.

@@ -538,7 +538,21 @@
     // Set a new timer to run the update logic after DEBOUNCE_DELAY
     debounceTimer = setTimeout(() => {
       ensureToggleButtonExists(); // Always ensure toggle button is present
-      if (bulkDeleteEnabled) {
+  
+      const mainContent = document.querySelector('main');
+      const isChatEmpty = !mainContent || mainContent.querySelector('[data-element-id="response-block"]') === null;
+  
+      if (isChatEmpty) {
+        // Reset bulk delete state if the chat is empty or context changes
+        if (bulkDeleteEnabled) {
+          toggleBulkDeleteMode(); // Disable bulk delete mode
+        }
+        selectedMessages.clear(); // Clear selected messages
+        if (bulkDeleteButton?.isConnected) {
+          bulkDeleteButton.remove(); // Remove the delete button
+          bulkDeleteButton = null;
+        }
+      } else if (bulkDeleteEnabled) {
         // If mode is enabled, ensure delete button exists and listeners are attached
         ensureBulkDeleteButtonExists();
         enableClickSelection(); // Re-applies listeners/styles to potentially new/changed messages

@@ -4,7 +4,7 @@ This script adds functionality to the TypingMind web interface to allow for the 
 
 ## Features
 
-*   **Toggle Mode:** Adds a small trash can icon button next to the "Chat Info" button in the header to enable/disable bulk delete mode.
+*   **Toggle Mode:** Adds a small trash can icon button next to the "More actions" button in the main window header to enable/disable bulk delete mode.
 *   **Message Selection:** When bulk delete mode is enabled:
     *   Clicking on a message block toggles its selection.
     *   Selected messages are highlighted with a light red background.

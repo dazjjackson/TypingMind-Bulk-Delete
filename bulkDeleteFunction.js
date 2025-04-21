@@ -2,10 +2,11 @@
  * @fileoverview Adds bulk message deletion functionality to the TypingMind interface.
  * Allows users to select multiple messages and delete them in one go,
  * mimicking the application's native single-message delete confirmation flow.
- * Includes a toggle button added near the "Chat Info" button and a "Delete Selected"
- * button that appears in the action button area when messages are selected.
+ * Includes a toggle button added near the "More actions" button of the main
+ * chat window and a "Delete Selected" button that appears in the action button
+ * area when messages are selected.
  *
- * @version 1.0.0
+ * @version 1.0.1
  */
 (function () {
   "use strict";
@@ -494,28 +495,31 @@
   }
 
   /**
-   * Creates and injects the bulk delete toggle button next to the "Chat Info" button
+   * Creates and injects the bulk delete toggle button next to the "More actions" button in the header of the main chat window
    * if it doesn't already exist or isn't connected.
    */
   function ensureToggleButtonExists() {
     const wasDisconnected = (toggleButton && !toggleButton.isConnected);
     if (toggleButton?.isConnected) return; // Already exists and connected
 
-    // Find the anchor point ("Chat Info" button)
-    const chatInfoButton = document.querySelector('button[data-tooltip-content="Chat Info"]');
-    if (chatInfoButton?.parentNode) { // Ensure anchor and its parent exist
+    // Find the anchor point ("More actions" button)
+    const moreActionsDiv = document.querySelector('[data-element-id="chat-space-beginning-part"] [data-headlessui-state]');
+    if (moreActionsDiv?.parentNode) { // Ensure anchor and its parent exist
       // Create the button if it's the first time
       if (!toggleButton) {
         toggleButton = document.createElement('button');
         toggleButton.id = 'bulk-delete-toggle-button';
+        // Add tooltip attributes
+    		toggleButton.setAttribute('data-tooltip-id', 'global');
+    		toggleButton.setAttribute('data-tooltip-content', 'Toggle Bulk Delete');
         // Inner HTML includes SVG icon and accessible title
         toggleButton.innerHTML = `<span class="relative block text-gray-400 hover:text-gray-500 dark:hover:text-white/80 hover:bg-black/5 dark:hover:bg-white/20 rounded-md p-1.5 transition-colors"><svg class="w-5 h-5 md:w-4 md:h-4 flex-shrink-0" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor"><path d="m13.474,7.25l-.374,7.105c-.056,1.062-.934,1.895-1.997,1.895h-4.205c-1.064,0-1.941-.833-1.997-1.895l-.374-7.105" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m6.75,4.75v-2c0-.552.448-1,1-1h2.5c.552,0,1,.448,1,1v2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" x1="2.75" x2="15.25" y1="4.75" y2="4.75"></line></g></svg><title>Toggle Bulk Message Delete</title></span>`;
         // Basic styling to make it look like other header buttons
         toggleButton.style.cssText = `background: none; border: none; cursor: pointer; margin-left: 4px; padding: 0; line-height: 0;`;
         toggleButton.addEventListener('click', toggleBulkDeleteMode);
       }
-      // Insert the toggle button after the "Chat Info" button
-      chatInfoButton.parentNode.insertBefore(toggleButton, chatInfoButton.nextSibling);
+      // Insert the toggle button after the "More actions" button
+      moreActionsDiv.parentNode.insertBefore(toggleButton, moreActionsDiv);
 
       // If the button was re-added after being disconnected, reset the mode state
       if (wasDisconnected && bulkDeleteEnabled) {
